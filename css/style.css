@@ -74,6 +74,117 @@ a { color: inherit; }
 }
 .skip-link:focus { top: 12px; }
 
+/* ============ INTRO "LA NEVICATA" ============ */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--blu);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+body.intro-lock { overflow: hidden; }
+
+.intro--fonde {
+  opacity: 0;
+  transform: translateY(38px);
+  transition: transform 0.75s cubic-bezier(0.5, 0, 0.6, 1), opacity 0.65s ease 0.05s;
+  pointer-events: none;
+}
+
+.intro-logo {
+  font-size: clamp(52px, 11vw, 120px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+}
+.intro-logo b {
+  font-weight: 800;
+  display: inline-block;
+  opacity: 0;
+  transform: scale(0.92);
+  animation: latte-in 0.55s cubic-bezier(0.3, 1.1, 0.4, 1) 0.25s forwards;
+}
+@keyframes latte-in {
+  to { opacity: 1; transform: scale(1); }
+}
+
+.il-neve i {
+  font-style: normal;
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-52px) rotate(-9deg);
+  animation: neve-cade 0.65s cubic-bezier(0.25, 1.2, 0.4, 1) forwards;
+}
+.il-neve i:nth-child(1) { animation-delay: 0.70s; }
+.il-neve i:nth-child(2) { animation-delay: 0.86s; }
+.il-neve i:nth-child(3) { animation-delay: 1.02s; }
+.il-neve i:nth-child(4) { animation-delay: 1.18s; }
+@keyframes neve-cade {
+  60%  { opacity: 1; transform: translateY(4px) rotate(2deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+.intro-riga {
+  font-size: clamp(11px, 1.6vw, 13.5px);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  opacity: 0;
+  animation: riga-in 0.6s ease 1.55s forwards;
+}
+@keyframes riga-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.intro-parola {
+  position: absolute;
+  font-size: clamp(13px, 1.9vw, 17px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  opacity: 0;
+  animation: parola-in 0.7s ease forwards;
+}
+.pw1 { top: 16%; left: 10%;  animation-delay: 1.30s; }
+.pw2 { top: 24%; right: 12%; animation-delay: 1.42s; }
+.pw3 { bottom: 26%; left: 13%; animation-delay: 1.54s; }
+.pw4 { bottom: 17%; right: 15%; animation-delay: 1.66s; }
+.pw5 { top: 44%; left: 5%;  animation-delay: 1.78s; }
+.pw6 { top: 58%; right: 6%; animation-delay: 1.90s; }
+@keyframes parola-in {
+  to { opacity: 1; }
+}
+
+/* ingresso hero orchestrato con la fine dell'intro */
+.has-intro .hero-inner {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.intro-done .hero-inner {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s ease 0.25s, transform 0.7s ease 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none; }
+  .has-intro .hero-inner { opacity: 1; transform: none; }
+}
+
+@media (max-width: 700px) {
+  .pw5, .pw6 { display: none; }
+}
+
 /* ============ TOPBAR ============ */
 
 .topbar {

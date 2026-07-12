@@ -166,6 +166,39 @@
 
   if (current !== 'it') applyLang(current);
 
+  /* ---------- intro "la nevicata" ---------- */
+
+  var intro = document.getElementById('intro');
+  if (intro) {
+    var introReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (introReduced) {
+      intro.remove();
+    } else {
+      var introDone = false;
+      var fondeIntro = function () {
+        intro.classList.add('intro--fonde');
+        document.documentElement.classList.add('intro-done');
+      };
+      var finishIntro = function () {
+        if (introDone) return;
+        introDone = true;
+        clearTimeout(fondeTimer);
+        clearTimeout(endTimer);
+        document.documentElement.classList.add('intro-done');
+        document.body.classList.remove('intro-lock');
+        intro.remove();
+        window.removeEventListener('pointerdown', finishIntro, true);
+        window.removeEventListener('keydown', finishIntro, true);
+      };
+      document.documentElement.classList.add('has-intro');
+      document.body.classList.add('intro-lock');
+      var fondeTimer = setTimeout(fondeIntro, 2250);
+      var endTimer = setTimeout(finishIntro, 3150);
+      window.addEventListener('pointerdown', finishIntro, true);
+      window.addEventListener('keydown', finishIntro, true);
+    }
+  }
+
   /* ---------- copyright dinamico ---------- */
 
   var nowYear = new Date().getFullYear();
