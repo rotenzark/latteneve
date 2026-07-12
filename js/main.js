@@ -206,4 +206,17 @@
     }, { threshold: 0.12 });
     targets.forEach(function (t) { io.observe(t); });
   }
+/* ---------- rete di sicurezza: se IntersectionObserver non parte, mostra tutto ---------- */
+  if ('IntersectionObserver' in window) {
+    var ioVivo = false;
+    var sentinella = new IntersectionObserver(function () { ioVivo = true; sentinella.disconnect(); });
+    sentinella.observe(document.body);
+    setTimeout(function () {
+      if (!ioVivo) {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+      }
+    }, 1500);
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+  }
 })();
